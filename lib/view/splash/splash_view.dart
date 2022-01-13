@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_carboy/view/splash/splash_view_model.dart';
+import 'package:smart_carboy/widgets/base_container.dart';
 import 'package:smart_carboy/widgets/custom_text.dart';
 import 'package:stacked/stacked.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
@@ -14,19 +15,8 @@ class SplashView extends StatelessWidget {
         onModelReady: (viewModel) => viewModel.initialize(context),
         builder: (context, viewModel, child) {
           return Scaffold(
-            body: Container(
-              height: context.dynamicHeight(1),
-              width: context.dynamicWidth(1),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color(0xffA1D2F1),
-                    Color(0xffE2F2FC),
-                    Color(0xff9FD1F1),
-                  ])),
-              child: Stack(
+            body: BaseContainer(
+              Stack(
                 children: [
                   Column(children: [
                     Container(height: context.dynamicHeight(0.3)),
@@ -48,16 +38,15 @@ class SplashView extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {},
                                 child: CustomText('LOADING',
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold),
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Color(0xff0F608E)),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            side: BorderSide(
-                                                color: Color(0xff05D2FF),
-                                                width: 4)))),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Color(0xff0F608E),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Color(0xff05D2FF),
+                                            width: 4))),
                               ),
                             ),
                           ),
