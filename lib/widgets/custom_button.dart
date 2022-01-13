@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final Widget? child;
   final Color? textColor;
+  final FontWeight? textWeight;
   final Color? backgroundColor;
   final Color? borderColor;
   final Function()? onPressed;
@@ -21,18 +22,19 @@ class CustomButton extends StatelessWidget {
       this.borderColor,
       required this.onPressed,
       this.height,
-      this.width})
+      this.width, this.textWeight})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width ?? context.dynamicWidth(1),
+      height: height,
       padding: EdgeInsets.symmetric(vertical: 4),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed ?? () {},
           child: text != null
-              ? CustomText(text!, color: textColor ?? Color(0xff1D91D2))
+              ? CustomText(text!, color: textColor ?? Color(0xff1D91D2), fontWeight: textWeight ?? FontWeight.normal)
               : child,
           style: ElevatedButton.styleFrom(
               primary: backgroundColor ?? Colors.white,

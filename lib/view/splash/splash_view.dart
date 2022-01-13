@@ -16,7 +16,7 @@ class SplashView extends StatelessWidget {
         builder: (context, viewModel, child) {
           return Scaffold(
             body: BaseContainer(
-              Stack(
+             child: Stack(
                 children: [
                   Column(children: [
                     Container(height: context.dynamicHeight(0.3)),
