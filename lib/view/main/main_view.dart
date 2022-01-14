@@ -4,6 +4,7 @@ import 'package:smart_carboy/core/extensions/context_extension.dart';
 import 'package:smart_carboy/view/basket/basket_view.dart';
 import 'package:smart_carboy/view/home/home_view.dart';
 import 'package:smart_carboy/view/main/main_view_model.dart';
+import 'package:smart_carboy/view/settings/settings_view.dart';
 import 'package:smart_carboy/widgets/brand_container.dart';
 import 'package:smart_carboy/widgets/custom_text.dart';
 import 'package:stacked/stacked.dart';
@@ -164,7 +165,7 @@ class _MainViewState extends State<MainView> {
       case 1:
         return HomeView();
       case 2:
-        return Center(child: CustomText('Ayarlar'));
+        return SettingsView();
       default:
         return Center(child: CustomText('Default'));
     }

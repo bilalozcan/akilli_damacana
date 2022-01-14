@@ -35,76 +35,76 @@ class _BasketViewState extends State<BasketView> {
                     Color(0xff05B4FF),
                     Color(0xff118BBF),
                   ])),
-              child: _isSuccess
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: context.dynamicWidth(0.2)),
-                      child: Container(
-                        width: context.dynamicWidth(1),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: context.dynamicWidth(0.6),
-                              width: context.dynamicWidth(0.6),
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xffE2F2FC),
-                                        Color(0xffA1D2F1),
-                                      ]),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: context.dynamicWidth(0.30),
-                                    width: context.dynamicWidth(0.30),
-                                    decoration: BoxDecoration(
-                                        // color: Colors.red,
-                                        border: Border.all(
-                                            color: Color(0xff1D91D2), width: 4),
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
-                                    child: Center(
-                                        child: Icon(
-                                      AppIcons.basket,
-                                      size: 64,
-                                      color: Color(0xff1D91D2),
-                                    )),
-                                  ),
-                                  SizedBox(height: context.dynamicHeight(0.01)),
-                                  Column(
-                                    children: [
-                                      CustomText(
-                                        'Siparişiniz\nYola Çıktı!',
-                                        color: Color(0xff1D91D2),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: context.dynamicHeight(0.01)),
-                            CustomButton(
-                              onPressed: () {},
-                              backgroundColor: Color(0xff0F608E),
-                              text: 'Profile Git',
-                              textColor: Colors.white,
-                              textWeight: FontWeight.bold,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  : basketBody(context),
+              child:
+                  _isSuccess ? buildSuccesBody(context) : basketBody(context),
             ),
           );
         });
+  }
+
+  Padding buildSuccesBody(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.2)),
+      child: Container(
+        width: context.dynamicWidth(1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: context.dynamicWidth(0.6),
+              width: context.dynamicWidth(0.6),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xffE2F2FC),
+                        Color(0xffA1D2F1),
+                      ]),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: context.dynamicWidth(0.30),
+                    width: context.dynamicWidth(0.30),
+                    decoration: BoxDecoration(
+                        // color: Colors.red,
+                        border: Border.all(color: Color(0xff1D91D2), width: 4),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Center(
+                        child: Icon(
+                      AppIcons.basket,
+                      size: 64,
+                      color: Color(0xff1D91D2),
+                    )),
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.01)),
+                  Column(
+                    children: [
+                      CustomText(
+                        'Siparişiniz\nYola Çıktı!',
+                        color: Color(0xff1D91D2),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: context.dynamicHeight(0.01)),
+            CustomButton(
+              onPressed: () {},
+              backgroundColor: Color(0xff0F608E),
+              text: 'Profile Git',
+              textColor: Colors.white,
+              textWeight: FontWeight.bold,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Padding basketBody(BuildContext context) {
