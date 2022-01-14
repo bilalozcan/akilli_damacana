@@ -2,6 +2,7 @@ import 'package:smart_carboy/core/constants/enum/network_enum.dart';
 import 'package:smart_carboy/core/extensions/network_extension.dart';
 import 'package:smart_carboy/core/init/network/network_manager.dart';
 import 'package:smart_carboy/model/auth_response.dart';
+import 'package:smart_carboy/model/profile.dart';
 import 'package:smart_carboy/model/user.dart';
 
 class AuthService {
@@ -20,6 +21,6 @@ class AuthService {
       await _networkManager.post(Network.LOGIN.value,
           {'email': email, 'password': password}, AuthResponse());
 
-  Future<User> getUser() async =>
-      await _networkManager.get(Network.LOGIN.value, User());
+  Future<Profile> getProfile() async =>
+      await _networkManager.get(Network.PROFILE.value, Profile());
 }

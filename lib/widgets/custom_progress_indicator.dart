@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_carboy/core/extensions/context_extension.dart';
 
 class CustomProgressIndicator extends StatelessWidget {
   const CustomProgressIndicator({
@@ -7,6 +8,6 @@ class CustomProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(color: Colors.white);
+    return CircularProgressIndicator(color: context.themeData.colorScheme.primaryVariant);
   }
 }

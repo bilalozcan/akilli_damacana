@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
 import 'package:smart_carboy/view/splash/splash_view_model.dart';
 import 'package:smart_carboy/widgets/base_container.dart';
 import 'package:smart_carboy/widgets/custom_text.dart';
@@ -38,14 +39,14 @@ class SplashView extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {},
                                 child: CustomText('LOADING',
-                                    color: Colors.white,
+                                    color: context.themeData.colorScheme.primaryVariant,
                                     fontWeight: FontWeight.bold),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Color(0xff0F608E),
+                                    primary: context.themeData.colorScheme.primary,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         side: BorderSide(
-                                            color: Color(0xff05D2FF),
+                                            color: ColorSchemeLight.instance!.lightBlue0,
                                             width: 4))),
                               ),
                             ),

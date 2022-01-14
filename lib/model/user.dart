@@ -27,9 +27,13 @@ class User extends BaseModel{
   String? phoneNumber;
   String? email;
   String? username;
+  @JsonKey(name: 'email_verified_at')
   DateTime? emailVerifiedAt;
+  @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
+  @JsonKey(name: 'profile_picture')
   String? profilePicture;
   int? height;
   int? weight;

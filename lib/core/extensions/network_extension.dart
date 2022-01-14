@@ -5,6 +5,12 @@ extension NetworkExtension on Network {
     switch(this) {
       case Network.LOGIN:
         return '/auth/login';
+      case Network.PROFILE:
+        return '/profile';
+      case Network.PRODUCTS:
+        return '/products/';
+      case Network.ORDER:
+        return '/order';
       default:
         return '';
     }

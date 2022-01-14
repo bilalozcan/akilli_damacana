@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_carboy/core/constants/icon/app_icons.dart';
+import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
+import 'package:smart_carboy/model/product.dart';
+import 'package:smart_carboy/view/main/main_view_model.dart';
 import 'package:smart_carboy/widgets/brand_container.dart';
 import 'package:smart_carboy/widgets/custom_button.dart';
 import 'package:smart_carboy/widgets/custom_text.dart';
-import 'package:stacked/stacked.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
+import 'package:smart_carboy/widgets/loading_widget.dart';
 import 'basket_view_model.dart';
 
 class BasketView extends StatefulWidget {
@@ -15,34 +19,32 @@ class BasketView extends StatefulWidget {
 }
 
 class _BasketViewState extends State<BasketView> {
-  int _count = 0;
-  bool _isSuccess = false;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<BasketViewModel>.reactive(
-        viewModelBuilder: () => BasketViewModel(),
-        onModelReady: (viewModel) => viewModel.initialize(context),
-        builder: (context, viewModel, child) {
-          return Scaffold(
-            appBar: buildAppBar(),
-            body: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                    Color(0xff05B4FF),
-                    Color(0xff118BBF),
-                  ])),
-              child:
-                  _isSuccess ? buildSuccesBody(context) : basketBody(context),
-            ),
-          );
-        });
+    return Consumer<BasketViewModel>(builder: (context, viewModel, child) {
+      return Scaffold(
+        appBar: buildAppBar(),
+        body: Stack(
+          children: [Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                  ColorSchemeLight.instance!.lightBlue1,
+                  ColorSchemeLight.instance!.lightBlue2,
+                ])),
+            child: viewModel.isSuccess ? buildSuccessBody(viewModel) : basketBody(viewModel),
+          ),
+          LoadingWidget(viewModel.isLoading)
+          ],
+        ),
+      );
+    });
   }
 
-  Padding buildSuccesBody(BuildContext context) {
+  Padding buildSuccessBody(BasketViewModel viewModel) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.2)),
       child: Container(
@@ -58,8 +60,8 @@ class _BasketViewState extends State<BasketView> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color(0xffE2F2FC),
-                        Color(0xffA1D2F1),
+                        ColorSchemeLight.instance!.lightGrayishBlue,
+                        ColorSchemeLight.instance!.lightGrayishBlue3,
                       ]),
                   borderRadius: BorderRadius.circular(10)),
               child: Column(
@@ -70,13 +72,13 @@ class _BasketViewState extends State<BasketView> {
                     width: context.dynamicWidth(0.30),
                     decoration: BoxDecoration(
                         // color: Colors.red,
-                        border: Border.all(color: Color(0xff1D91D2), width: 4),
+                        border: Border.all(color: context.themeData.primaryColor, width: 4),
                         borderRadius: BorderRadius.circular(100)),
                     child: Center(
                         child: Icon(
                       AppIcons.basket,
                       size: 64,
-                      color: Color(0xff1D91D2),
+                      color: context.themeData.primaryColor,
                     )),
                   ),
                   SizedBox(height: context.dynamicHeight(0.01)),
@@ -84,7 +86,7 @@ class _BasketViewState extends State<BasketView> {
                     children: [
                       CustomText(
                         'Siparişiniz\nYola Çıktı!',
-                        color: Color(0xff1D91D2),
+                        color: context.themeData.primaryColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )
@@ -95,10 +97,13 @@ class _BasketViewState extends State<BasketView> {
             ),
             SizedBox(height: context.dynamicHeight(0.01)),
             CustomButton(
-              onPressed: () {},
-              backgroundColor: Color(0xff0F608E),
+              onPressed: () {
+                viewModel.isSuccess = false;
+                context.read<MainViewModel>().bottomBarIndex = 2;
+              },
+              backgroundColor: context.themeData.colorScheme.primary,
               text: 'Profile Git',
-              textColor: Colors.white,
+              textColor: context.themeData.colorScheme.primaryVariant,
               textWeight: FontWeight.bold,
             )
           ],
@@ -107,7 +112,7 @@ class _BasketViewState extends State<BasketView> {
     );
   }
 
-  Padding basketBody(BuildContext context) {
+  Padding basketBody(BasketViewModel viewModel) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.05)),
       child: Padding(
@@ -115,29 +120,35 @@ class _BasketViewState extends State<BasketView> {
         child: Column(
           children: [
             Expanded(
-                child: ListView(
-              children: [
-                basketItemContainer(context),
-                basketItemContainer(context),
-              ],
-            )),
+                child: viewModel.basketList.isNotEmpty
+                    ? ListView(
+                        children: viewModel.basketList
+                            .map((product) =>
+                                basketItemContainer(product, viewModel))
+                            .toList()
+                        )
+                    : Center(
+                        child: CustomText('SEPET BOŞ',
+                            color: context.themeData.colorScheme.primaryVariant, fontWeight: FontWeight.bold),
+                      )),
+            SizedBox(height: context.dynamicHeight(0.02)),
             Container(
               margin: EdgeInsets.only(bottom: 10),
               height: context.dynamicHeight(0.06),
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.themeData.colorScheme.primaryVariant,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff0F608E).withOpacity(0.25),
+                        color: context.themeData.colorScheme.primary.withOpacity(0.25),
                         offset: Offset(0, 4),
                         blurRadius: 4)
                   ]),
               child: Center(
                 child: CustomText(
-                  'TOPLAM TUTAR : 37,80',
-                  color: Color(0xff0F608E),
+                  'TOPLAM TUTAR : ${viewModel.totalCount.toStringAsFixed(2).replaceAll('.', ',')} TL',
+                  color: context.themeData.colorScheme.primary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -146,14 +157,12 @@ class _BasketViewState extends State<BasketView> {
               padding: EdgeInsets.only(bottom: 20),
               child: CustomButton(
                 height: context.dynamicHeight(0.06),
-                onPressed: () {
-                  setState(() {
-                    _isSuccess = true;
-                  });
-                },
-                backgroundColor: Color(0xff0F608E),
+                onPressed: () =>
+                  viewModel.postOrder()
+                ,
+                backgroundColor: context.themeData.colorScheme.primary,
                 text: 'SİPARİŞİ ONAYLA',
-                textColor: Colors.white,
+                textColor: context.themeData.colorScheme.primaryVariant,
                 textWeight: FontWeight.bold,
               ),
             )
@@ -163,7 +172,7 @@ class _BasketViewState extends State<BasketView> {
     );
   }
 
-  Widget basketItemContainer(BuildContext context) {
+  Widget basketItemContainer(Product product, BasketViewModel viewModel) {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: Container(
@@ -173,7 +182,8 @@ class _BasketViewState extends State<BasketView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                width: context.dynamicWidth(0.30), child: BrandContainer()),
+                width: context.dynamicWidth(0.30),
+                child: BrandContainer(product, false)),
             Container(
                 width: context.dynamicWidth(0.60),
                 child: Column(
@@ -183,12 +193,12 @@ class _BasketViewState extends State<BasketView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomText('19 Lt Hayat Damacana Su',
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        CustomText('19 Lt ${product.brand} Damacana Su',
+                            color: context.themeData.colorScheme.primaryVariant, fontWeight: FontWeight.bold),
                         SizedBox(height: context.dynamicHeight(0.01)),
                         CustomText(
-                          '19.90 Tl',
-                          color: Colors.white,
+                          '${product.price} Tl',
+                          color: context.themeData.colorScheme.primaryVariant,
                           fontSize: 14,
                         )
                       ],
@@ -204,59 +214,54 @@ class _BasketViewState extends State<BasketView> {
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color(0xff0F608E).withOpacity(0.25),
+                                    color: context.themeData.colorScheme.primary.withOpacity(0.25),
                                     offset: Offset(0, 4))
                               ]),
                           child: Row(children: [
                             InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _count != 0 ? _count -= 1 : null;
-                                });
-                              },
+                              onTap: () =>
+                                  viewModel.basketUpdate(product, false),
                               child: Container(
                                 height: context.dynamicHeight(0.04),
                                 width: context.dynamicWidth(0.08),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: context.themeData.colorScheme.primaryVariant,
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       bottomLeft: Radius.circular(10)),
                                 ),
                                 child: Icon(
                                   Icons.remove,
-                                  color: Color(0xff1D91D2),
+                                  color: context.themeData.primaryColor,
                                 ),
                               ),
                             ),
                             Container(
                               width: context.dynamicWidth(0.2),
-                              color: Color(0xff0F608E),
+                              color: context.themeData.colorScheme.primary,
                               child: Center(
                                 child: CustomText(
-                                  '$_count',
-                                  color: Colors.white,
+                                  // '$_count',
+                                  '${product.count}',
+                                  color: context.themeData.colorScheme.primaryVariant,
                                 ),
                               ),
                             ),
                             InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _count += 1;
-                                });
-                              },
+                              onTap: () =>
+                                  viewModel.basketUpdate(product, true),
                               child: Container(
                                 height: context.dynamicHeight(0.04),
                                 width: context.dynamicWidth(0.08),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: context.themeData.colorScheme.primaryVariant,
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(10),
                                       bottomRight: Radius.circular(10)),
                                 ),
                                 child: Icon(
                                   Icons.add,
-                                  color: Color(0xff1D91D2),
+                                  color: context.themeData.primaryColor,
                                 ),
                               ),
                             )
@@ -275,10 +280,10 @@ class _BasketViewState extends State<BasketView> {
   AppBar buildAppBar() {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Color(0xff1D91D2),
+      backgroundColor: context.themeData.primaryColor,
       elevation: 0,
       title: CustomText('SEPETİM',
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          color: context.themeData.colorScheme.primaryVariant, fontWeight: FontWeight.bold, fontSize: 20),
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 15),

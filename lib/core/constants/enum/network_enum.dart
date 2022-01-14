@@ -1,3 +1,6 @@
 enum Network{
-  LOGIN
+  LOGIN,
+  PROFILE,
+  PRODUCTS,
+  ORDER,
 }

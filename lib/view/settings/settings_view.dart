@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:smart_carboy/core/constants/icon/app_icons.dart';
+import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
+import 'package:smart_carboy/widgets/custom_button.dart';
+import 'package:smart_carboy/widgets/custom_text_form_field.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:smart_carboy/core/extensions/context_extension.dart';
 import 'settings_view_model.dart';
 
 class SettingsView extends StatelessWidget {
@@ -21,24 +25,86 @@ class SettingsView extends StatelessWidget {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        Color(0xff05B4FF),
-                        Color(0xff118BBF),
-                      ])),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Column(
-                  children: [Container(
-                    padding: EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 1),
-                        borderRadius: BorderRadius.circular(200),
-                    ),
-                    child: CircleAvatar(
-                      radius: 100,
-                      child: Image.asset('assets/logo_yatay.png'),
-
-                    ),
-                  )],
+                    ColorSchemeLight.instance!.lightBlue1,
+                    ColorSchemeLight.instance!.lightBlue2,
+                  ])),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(13),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color:
+                                    context.themeData.colorScheme.primaryVariant,
+                                width: 1),
+                            borderRadius: BorderRadius.circular(200)),
+                        child: CircleAvatar(
+                          radius: 100,
+                          backgroundColor: context.themeData.colorScheme.primary
+                              .withOpacity(0.5),
+                          backgroundImage: AssetImage('assets/sirma.png'),
+                          child: Center(
+                              child: Icon(
+                            Icons.camera_alt_rounded,
+                            color: context.themeData.colorScheme.primaryVariant,
+                            size: 64,
+                          )),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: CustomButton(
+                                  onPressed: () {},
+                                  text: 'Profili Düzenle',
+                                  backgroundColor:
+                                      context.themeData.colorScheme.primary,
+                                  textColor: context
+                                      .themeData.colorScheme.primaryVariant)),
+                          SizedBox(width: context.dynamicWidth(0.02)),
+                          Expanded(
+                              child: CustomButton(
+                                  onPressed: () {},
+                                  text: 'Şifre Değiştir',
+                                  backgroundColor:
+                                      context.themeData.colorScheme.primary,
+                                  textColor: context
+                                      .themeData.colorScheme.primaryVariant)),
+                        ],
+                      ),
+                      SizedBox(height: context.dynamicHeight(0.05)),
+                      CustomTextFormField(TextEditingController(), hintText: 'Boy', icon: Icons.height,),
+                      CustomTextFormField(TextEditingController(), hintText: 'Kilo', icon: Icons.monitor_weight,),
+                      CustomTextFormField(TextEditingController(), hintText: 'Yaş', icon: Icons.calendar_today,),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(child: CustomTextFormField(TextEditingController(), hintText: 'Tüketilen Su (Lt)', icon: AppIcons.person,)),
+                          SizedBox(width: context.dynamicWidth(0.07)),
+                          CustomButton(
+                            height: context.dynamicHeight(0.08),
+                              width: context.dynamicWidth(0.25),
+                              onPressed: null,
+                              text: '4.5LT',
+                              backgroundColor:
+                              context.themeData.colorScheme.primary,
+                              textColor: context
+                                  .themeData.colorScheme.primaryVariant)
+                        ],
+                      ),
+                      CustomButton(
+                          height: context.dynamicHeight(0.09),
+                          onPressed: () {},
+                          text: 'Kaydet',
+                          backgroundColor:
+                          context.themeData.colorScheme.primary,
+                          textColor: context
+                              .themeData.colorScheme.primaryVariant)
+                    ],
+                  ),
                 ),
               ),
             ),

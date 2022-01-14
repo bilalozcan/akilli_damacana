@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
+import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
 
 class BaseContainer extends StatelessWidget {
   final Widget child;
@@ -20,9 +21,9 @@ class BaseContainer extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-              Color(0xffA1D2F1),
-              Color(0xffE2F2FC),
-              Color(0xff9FD1F1),
+              ColorSchemeLight.instance!.lightGrayishBlue3,
+              ColorSchemeLight.instance!.lightGrayishBlue,
+              ColorSchemeLight.instance!.lightGrayishBlue4,
             ])),
         child: child);
     ;

@@ -12,7 +12,5 @@ abstract class CustomBaseViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void initialize(BuildContext context){
-    this.context = context;
-  }
+  void initialize(BuildContext context);
 }

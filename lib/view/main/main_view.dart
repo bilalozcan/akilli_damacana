@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_carboy/core/constants/icon/app_icons.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
 import 'package:smart_carboy/view/basket/basket_view.dart';
+import 'package:smart_carboy/view/basket/basket_view_model.dart';
 import 'package:smart_carboy/view/home/home_view.dart';
 import 'package:smart_carboy/view/main/main_view_model.dart';
 import 'package:smart_carboy/view/settings/settings_view.dart';
@@ -33,7 +35,7 @@ class _MainViewState extends State<MainView> {
             bottomNavigationBar: buildBottomNavigationBar(viewModel),
             endDrawer: Drawer(
               elevation: 16.0,
-              backgroundColor: Color(0xff0F608E),
+              backgroundColor: context.themeData.colorScheme.primary,
               child: Container(
                 width: context.dynamicWidth(0.2),
                 child: Padding(
@@ -57,7 +59,7 @@ class _MainViewState extends State<MainView> {
                         child: CustomText(
                           'Önerilen Su Markaları',
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: context.themeData.colorScheme.primaryVariant,
                           fontSize: 18,
                         ),
                       )),
@@ -71,14 +73,10 @@ class _MainViewState extends State<MainView> {
                             crossAxisCount: 3,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
-                            children: [
-                              BrandContainer(),
-                              BrandContainer(),
-                              BrandContainer(),
-                              BrandContainer(),
-                              BrandContainer(),
-                              BrandContainer(),
-                            ],
+                            children: viewModel.productList
+                                .map(
+                                    (product) => BrandContainer(product, false))
+                                .toList(),
                           ),
                         ),
                       )
@@ -100,7 +98,7 @@ class _MainViewState extends State<MainView> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
-          color: Color(0xff1D91D2),
+          color: context.themeData.primaryColor,
         ),
         child: child,
       ),
@@ -114,7 +112,7 @@ class _MainViewState extends State<MainView> {
         CustomText(
           'MENU',
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: context.themeData.colorScheme.primaryVariant,
           fontSize: 20,
         ),
         IconButton(
@@ -123,7 +121,7 @@ class _MainViewState extends State<MainView> {
             },
             icon: Icon(
               AppIcons.close,
-              color: Colors.white,
+              color: context.themeData.colorScheme.primaryVariant,
             ))
       ],
     );
@@ -139,8 +137,9 @@ class _MainViewState extends State<MainView> {
           height: context.dynamicHeight(0.05),
           width: context.dynamicWidth(0.5),
           decoration: BoxDecoration(
-              color:
-                  viewModel.bottomBarIndex == index ? Color(0xff1D91D2) : null),
+              color: viewModel.bottomBarIndex == index
+                  ? context.themeData.primaryColor
+                  : null),
           child: Padding(
             padding: EdgeInsets.only(left: context.dynamicWidth(0.1)),
             child: Align(
@@ -150,7 +149,7 @@ class _MainViewState extends State<MainView> {
                 fontWeight: viewModel.bottomBarIndex == index
                     ? FontWeight.bold
                     : FontWeight.normal,
-                color: Colors.white,
+                color: context.themeData.colorScheme.primaryVariant,
                 fontSize: 18,
               ),
             ),
@@ -177,13 +176,39 @@ class _MainViewState extends State<MainView> {
       showUnselectedLabels: false,
       showSelectedLabels: false,
       iconSize: 28,
-      backgroundColor: Color(0xff0F608E),
-      unselectedItemColor: Color(0xff1D91D2),
+      backgroundColor: context.themeData.colorScheme.primary,
+      unselectedItemColor: context.themeData.primaryColor,
+      selectedItemColor: context.themeData.colorScheme.primaryVariant,
       onTap: (value) {
         viewModel.bottomBarIndex = value;
       },
       items: [
-        BottomNavigationBarItem(icon: Icon(AppIcons.basket), label: 'Basket'),
+        BottomNavigationBarItem(
+            icon: Container(
+              width: context.dynamicWidth(0.08),
+              child: Stack(children: [
+                Icon(AppIcons.basket),
+                Visibility(
+                  visible:
+                      context.watch<BasketViewModel>().basketList.isNotEmpty,
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                          radius: 7,
+                          backgroundColor: Colors.orange,
+                          child: CustomText(
+                            context
+                                .watch<BasketViewModel>()
+                                .basketList
+                                .length
+                                .toString(),
+                            color: context.themeData.colorScheme.primaryVariant,
+                            fontSize: 10,
+                          ))),
+                )
+              ]),
+            ),
+            label: 'Basket'),
         BottomNavigationBarItem(icon: Icon(AppIcons.home), label: 'Home'),
         BottomNavigationBarItem(
             icon: Icon(AppIcons.settings), label: 'Setting'),
@@ -206,10 +231,11 @@ class _MainViewState extends State<MainView> {
             padding: EdgeInsets.only(right: 10),
             child: IconButton(
                 onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
-                icon: Icon(AppIcons.menu, color: Color(0xff1D91D2))),
+                icon:
+                    Icon(AppIcons.menu, color: context.themeData.primaryColor)),
           )
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: context.themeData.colorScheme.primaryVariant,
         elevation: 0,
       );
 }

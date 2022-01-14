@@ -1,40 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
+import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
+import 'package:smart_carboy/model/product.dart';
+import 'package:smart_carboy/view/basket/basket_view_model.dart';
 import 'custom_text.dart';
 
 class BrandContainer extends StatefulWidget {
-  const BrandContainer({Key? key}) : super(key: key);
+  final Product? product;
+  final bool isHomeView;
+
+  const BrandContainer(this.product, this.isHomeView, {Key? key}) : super(key: key);
 
   @override
   State<BrandContainer> createState() => _BrandContainerState();
 }
 
 class _BrandContainerState extends State<BrandContainer> {
-  int _count = 0;
+  late int _count;
+
+  @override
+  void initState() {
+    super.initState();
+    _count = widget.product!.count;
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: widget.isHomeView ? () {
         if (_count == 0) {
           setState(() {
             _count += 1;
+            context.read<BasketViewModel>().basketUpdate(widget.product!, true);
           });
         }
-      },
+      } : null,
       child: Container(
           decoration: BoxDecoration(
               gradient:
-                  RadialGradient(colors: [Colors.white, Color(0xffD6EBF4)]),
-              border: Border.all(color: Color(0xff94C11F)),
+                  RadialGradient(colors: [context.themeData.colorScheme.primaryVariant, ColorSchemeLight.instance!.lightGrayishBlue2]),
+              border: Border.all(color: ColorSchemeLight.instance!.strongGreen),
               borderRadius: BorderRadius.circular(6)),
           child: Stack(children: [
-            Center(child: Image.asset('assets/sirma.png')),
+            Center(
+              child: Image.network(
+                widget.product!.photoUrl!,
+                errorBuilder: (context, object, stackTree) =>
+                    Image.asset('assets/sirma.png'),
+              ),
+            ),
             Visibility(
-              visible: _count > 0,
+              visible: widget.isHomeView && _count > 0,
               child: Container(
                 width: double.infinity,
-                color: Color(0xff1D91D2).withOpacity(0.75),
+                color: context.themeData.primaryColor.withOpacity(0.75),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -46,11 +66,11 @@ class _BrandContainerState extends State<BrandContainer> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomText('+',
-                              color: Colors.white,
+                              color: context.themeData.colorScheme.primaryVariant,
                               fontWeight: FontWeight.bold,
                               fontSize: 42),
                           CustomText('$_count',
-                              color: Colors.white,
+                              color: context.themeData.colorScheme.primaryVariant,
                               fontWeight: FontWeight.bold,
                               fontSize: 38),
                         ],
@@ -74,10 +94,13 @@ class _BrandContainerState extends State<BrandContainer> {
         if (type == 0) {
           setState(() {
             _count += 1;
+            context.read<BasketViewModel>().basketUpdate(widget.product!, true);
+
           });
         } else {
           setState(() {
             _count -= 1;
+            context.read<BasketViewModel>().basketUpdate(widget.product!, false);
           });
         }
       },
@@ -85,10 +108,10 @@ class _BrandContainerState extends State<BrandContainer> {
         height: 24,
         width: 24,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(6)),
+            color: context.themeData.colorScheme.primaryVariant, borderRadius: BorderRadius.circular(6)),
         child: Icon(
           type == 0 ? Icons.add : Icons.remove_rounded,
-          color: Color(0xff1D91D2),
+          color: context.themeData.primaryColor,
         ),
       ),
     );

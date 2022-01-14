@@ -23,6 +23,7 @@ class NetworkManager {
   late final Dio dioFile;
 
   NetworkManager.init() {
+    print(LocaleManager.instance.getStringValue(Locale.TOKEN.value));
     dio = Dio(BaseOptions(
         baseUrl: ApplicationConstants.BASE_URL,
         contentType: 'application/json',
@@ -85,7 +86,7 @@ class NetworkManager {
       {Map<String, dynamic>? queryParameters,
       bool isBaseResponse = true}) async {
     try {
-      final response = await dio.get(path, queryParameters: queryParameters);
+      final response = await dio.get(path, queryParameters: queryParameters ?? {});
       if (response.statusCode == HttpStatus.ok) {
         if (isBaseResponse) {
           return _baserResponseConverter(response.data, model: model);

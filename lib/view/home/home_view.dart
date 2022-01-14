@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_carboy/widgets/base_container.dart';
 import 'package:smart_carboy/widgets/brand_container.dart';
+import 'package:smart_carboy/widgets/custom_progress_indicator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:smart_carboy/core/extensions/context_extension.dart';
 import 'home_view_model.dart';
@@ -21,25 +22,12 @@ class HomeView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: context.dynamicWidth(0.07)),
                   child: Center(
-                    child: GridView.count(
+                    child: viewModel.isLoading ? CustomProgressIndicator(): GridView.count(
                       shrinkWrap: true,
                       crossAxisCount: 3,
                       mainAxisSpacing: 20,
                       crossAxisSpacing: 20,
-                      children: [
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                        BrandContainer(),
-                      ],
+                      children: viewModel.productList.map((product) => BrandContainer(product, true)).toList()
                     ),
                   ),
                 )),

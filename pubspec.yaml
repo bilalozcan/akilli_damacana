@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.1
   stacked: ^2.2.7+1
   shared_preferences: ^2.0.11
   dio: ^4.0.4
