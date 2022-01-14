@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         cursorColor: Colors.white,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hintText ?? '',
             hintStyle: TextStyle(color: Colors.white),
