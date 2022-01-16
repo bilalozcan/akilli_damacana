@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/view/register/register_view.dart';
-import '../../core/constants/icon/app_icons.dart';
-import '../home/home_view.dart';
-import 'login_view_model.dart';
-import '../main/main_view.dart';
-import '../../widgets/base_container.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_text_form_field.dart';
-import '../../widgets/loading_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_carboy/core/constants/icon/app_icons.dart';
+import 'package:smart_carboy/core/extensions/context_extension.dart';
+import 'package:smart_carboy/widgets/base_container.dart';
+import 'package:smart_carboy/widgets/custom_button.dart';
+import 'package:smart_carboy/widgets/custom_text_form_field.dart';
+import 'package:smart_carboy/widgets/loading_widget.dart';
 import 'package:stacked/stacked.dart';
-import '../../core/extensions/context_extension.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+import 'register_view_model.dart';
+
+class RegisterView extends StatelessWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-        viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<RegisterViewModel>.reactive(
+        viewModelBuilder: () => RegisterViewModel(),
         onModelReady: (viewModel) => viewModel.initialize(context),
         builder: (context, viewModel, child) {
           return Scaffold(
@@ -34,8 +33,8 @@ class LoginView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: context.dynamicHeight(0.06)),
+                            padding: EdgeInsets.only(
+                                top: context.dynamicHeight(0.06)),
                             child:
                                 Image.asset('assets/girislogosu.png', scale: 1),
                           ),
@@ -45,37 +44,33 @@ class LoginView extends StatelessWidget {
                             child: Column(
                               children: [
                                 CustomTextFormField(viewModel.email,
-                                    hintText: 'Kullanıcı Adı',
-                                    icon: AppIcons.person),
+                                    hintText: 'Email', icon: AppIcons.person),
                                 CustomTextFormField(viewModel.password,
                                     hintText: 'Şifre', icon: AppIcons.lock),
+                                CustomTextFormField(viewModel.password,
+                                    hintText: 'Şifre Tekrar',
+                                    icon: AppIcons.lock),
                                 Container(
                                     height: context.dynamicHeight(0.06),
                                     child: CustomButton(
-                                        text: 'Giriş Yap',
-                                        onPressed: () {
-                                          viewModel.login();
-                                        })),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        flex: 10,
-                                        child: CustomButton(
-                                            text: 'Kayıt Ol', onPressed: () => context.navigateTo(RegisterView()))),
-                                    Expanded(flex: 1, child: SizedBox()),
-                                    Expanded(
-                                        flex: 18,
-                                        child: CustomButton(
-                                            text: 'Şifremi Unuttum',
-                                            onPressed: null))
-                                  ],
-                                )
+                                        text: 'Kaydet',
+                                        onPressed: ()=> viewModel.register())),
                               ],
                             ),
                           )
                         ],
                       ),
                     ),
+                    Positioned(
+                        top: 35,
+                        left: 10,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () => context.pop(),
+                          ),
+                        )),
                     LoadingWidget(viewModel.isLoading)
                   ],
                 ),

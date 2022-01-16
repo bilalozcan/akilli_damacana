@@ -11,7 +11,7 @@ import '../main/main_view.dart';
 
 class LoginViewModel extends CustomBaseViewModel {
   final AuthService _authService = AuthService.instance!;
-  final userName = TextEditingController();
+  final email = TextEditingController();
   final password = TextEditingController();
 
   @override
@@ -20,23 +20,29 @@ class LoginViewModel extends CustomBaseViewModel {
   }
 
   void login() async {
-    isLoading = true;
-    var result = await _authService.login(userName.text, password.text);
-    if (result != null) {
-      BaseData.instance!.user = result.user;
-      LocaleManager.instance.setBoolValue(Locale.LOGIN.value, true);
-      LocaleManager.instance.setStringValue(Locale.TOKEN.value, result.token!);
-      NetworkManager.instance!.dio.options.headers = {
-        'Authorization': 'Bearer ${result.token!}'
-      };
-      NetworkManager.instance!.dioFile.options.headers = {
-        'Authorization': 'Bearer ${result.token!}'
-      };
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainView()));
+    if (email.text.isNotEmpty && password.text.isNotEmpty) {
+      isLoading = true;
+      var result = await _authService.login(email.text, password.text);
+      if (result != null) {
+        BaseData.instance!.user = result.user;
+        LocaleManager.instance.setBoolValue(Locale.LOGIN.value, true);
+        LocaleManager.instance
+            .setStringValue(Locale.TOKEN.value, result.token!);
+        NetworkManager.instance!.dio.options.headers = {
+          'Authorization': 'Bearer ${result.token!}'
+        };
+        NetworkManager.instance!.dioFile.options.headers = {
+          'Authorization': 'Bearer ${result.token!}'
+        };
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MainView()));
+      } else {
+        isLoading = false;
+        Fluttertoast.showToast(msg: 'Email veya şifre hatalı!');
+      }
+      isLoading = false;
     } else {
-      Fluttertoast.showToast(msg: 'Email veya şifre hatalı!');
+      Fluttertoast.showToast(msg: 'Tüm alanları doldurunuz');
     }
-    isLoading = false;
   }
 }

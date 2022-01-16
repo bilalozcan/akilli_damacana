@@ -69,11 +69,13 @@ class BasketViewModel extends CustomBaseViewModel {
                 .map((basketItem) =>
                     CartItem(id: basketItem.id, count: basketItem.count))
                 .toList());
-        var result = await _productService.postOrder(cart);
+        // var result = await _productService.postOrder(cart);
+        var result = true;
         print('aaa');
         if (result != null) {
           Fluttertoast.showToast(msg: 'Siparişiniz Alındı');
           basketList.clear();
+          totalCount = 0;
           isSuccess = true;
           // notifyListeners();
         } else {

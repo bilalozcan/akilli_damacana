@@ -23,4 +23,17 @@ extension ContextExtension on BuildContext {
 
   double dynamicAppBarWidth(double value) =>
       AppBar().preferredSize.width * value;
+
+  Future pop() async =>
+      Navigator.pop(this);
+
+  Future navigateTo(Widget widget) async =>
+      Navigator.push(this, MaterialPageRoute(builder: (context) => widget));
+
+  Future navigateToReplacement(Widget widget) async =>
+      Navigator.pushReplacement(this, MaterialPageRoute(builder: (context) => widget));
+
+
+  Future navigateToRemoveUntil(Widget widget) async =>
+      Navigator.pushAndRemoveUntil(this, MaterialPageRoute(builder: (context) => widget),(r) => false);
 }

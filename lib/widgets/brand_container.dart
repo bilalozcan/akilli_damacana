@@ -10,7 +10,8 @@ class BrandContainer extends StatefulWidget {
   final Product? product;
   final bool isHomeView;
 
-  const BrandContainer(this.product, this.isHomeView, {Key? key}) : super(key: key);
+  const BrandContainer(this.product, this.isHomeView, {Key? key})
+      : super(key: key);
 
   @override
   State<BrandContainer> createState() => _BrandContainerState();
@@ -22,34 +23,46 @@ class _BrandContainerState extends State<BrandContainer> {
   @override
   void initState() {
     super.initState();
+    // print(widget.product!.photoUrl!.split('/').last);
     _count = widget.product!.count;
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.isHomeView ? () {
-        if (_count == 0) {
-          setState(() {
-            _count += 1;
-            context.read<BasketViewModel>().basketUpdate(widget.product!, true);
-          });
-        }
-      } : null,
+      onTap: widget.isHomeView
+          ? () {
+              if (_count == 0) {
+                setState(() {
+                  _count += 1;
+                  context
+                      .read<BasketViewModel>()
+                      .basketUpdate(widget.product!, true);
+                });
+              }
+            }
+          : null,
       child: Container(
           decoration: BoxDecoration(
-              gradient:
-                  RadialGradient(colors: [context.themeData.colorScheme.primaryVariant, ColorSchemeLight.instance!.lightGrayishBlue2]),
+              gradient: RadialGradient(colors: [
+                context.themeData.colorScheme.primaryVariant,
+                ColorSchemeLight.instance!.lightGrayishBlue2
+              ]),
               border: Border.all(color: ColorSchemeLight.instance!.strongGreen),
               borderRadius: BorderRadius.circular(6)),
           child: Stack(children: [
             Center(
-              child: Image.network(
-                widget.product!.photoUrl!,
-                errorBuilder: (context, object, stackTree) =>
-                    Image.asset('assets/sirma.png'),
-              ),
-            ),
+                child: Image.asset(
+              'assets/water_image/${widget.product!.photoUrl!.split('/').last}',
+              errorBuilder: (context, object, stackTree) =>
+                  Image.asset('assets/sirma.png'),
+            )
+                // Image.network(
+                //   widget.product!.photoUrl!,
+                //   errorBuilder: (context, object, stackTree) =>
+                //       Image.asset('assets/sirma.png'),
+                // ),
+                ),
             Visibility(
               visible: widget.isHomeView && _count > 0,
               child: Container(
@@ -66,11 +79,13 @@ class _BrandContainerState extends State<BrandContainer> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomText('+',
-                              color: context.themeData.colorScheme.primaryVariant,
+                              color:
+                                  context.themeData.colorScheme.primaryVariant,
                               fontWeight: FontWeight.bold,
                               fontSize: 42),
                           CustomText('$_count',
-                              color: context.themeData.colorScheme.primaryVariant,
+                              color:
+                                  context.themeData.colorScheme.primaryVariant,
                               fontWeight: FontWeight.bold,
                               fontSize: 38),
                         ],
@@ -95,12 +110,13 @@ class _BrandContainerState extends State<BrandContainer> {
           setState(() {
             _count += 1;
             context.read<BasketViewModel>().basketUpdate(widget.product!, true);
-
           });
         } else {
           setState(() {
             _count -= 1;
-            context.read<BasketViewModel>().basketUpdate(widget.product!, false);
+            context
+                .read<BasketViewModel>()
+                .basketUpdate(widget.product!, false);
           });
         }
       },
@@ -108,7 +124,8 @@ class _BrandContainerState extends State<BrandContainer> {
         height: 24,
         width: 24,
         decoration: BoxDecoration(
-            color: context.themeData.colorScheme.primaryVariant, borderRadius: BorderRadius.circular(6)),
+            color: context.themeData.colorScheme.primaryVariant,
+            borderRadius: BorderRadius.circular(6)),
         child: Icon(
           type == 0 ? Icons.add : Icons.remove_rounded,
           color: context.themeData.primaryColor,

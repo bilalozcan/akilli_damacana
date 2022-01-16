@@ -11,5 +11,9 @@ class BaseData {
   BaseData._init();
 
   User? user;
+  String? address = '';
+  String? phoneNumber = '';
+  String? age = '';
+  String? waterCount = '0';
 
 }

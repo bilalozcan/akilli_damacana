@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_carboy/core/base/base_data.dart';
 import '../../core/constants/icon/app_icons.dart';
 import '../../core/init/theme/light/color_scheme_light.dart';
 import '../../widgets/custom_button.dart';
@@ -45,7 +46,7 @@ class SettingsView extends StatelessWidget {
                           radius: 100,
                           backgroundColor: context.themeData.colorScheme.primary
                               .withOpacity(0.5),
-                          backgroundImage: AssetImage('assets/sirma.png'),
+                          backgroundImage: AssetImage('assets/background.png'),
                           child: Center(
                               child: Icon(
                             Icons.camera_alt_rounded,
@@ -58,37 +59,37 @@ class SettingsView extends StatelessWidget {
                         children: [
                           Expanded(
                               child: CustomButton(
-                                  onPressed: () {},
-                                  text: 'Profili Düzenle',
+                                  onPressed: null,
+                                  text: 'Profili Düzenleme',
                                   backgroundColor:
                                       context.themeData.colorScheme.primary,
                                   textColor: context
                                       .themeData.colorScheme.primaryVariant)),
-                          SizedBox(width: context.dynamicWidth(0.02)),
-                          Expanded(
-                              child: CustomButton(
-                                  onPressed: () {},
-                                  text: 'Şifre Değiştir',
-                                  backgroundColor:
-                                      context.themeData.colorScheme.primary,
-                                  textColor: context
-                                      .themeData.colorScheme.primaryVariant)),
+                          // SizedBox(width: context.dynamicWidth(0.02)),
+                          // Expanded(
+                          //     child: CustomButton(
+                          //         onPressed: () {},
+                          //         text: 'Şifre Değiştir',
+                          //         backgroundColor:
+                          //             context.themeData.colorScheme.primary,
+                          //         textColor: context
+                          //             .themeData.colorScheme.primaryVariant)),
                         ],
                       ),
                       SizedBox(height: context.dynamicHeight(0.05)),
-                      CustomTextFormField(TextEditingController(), hintText: 'Boy', icon: Icons.height,),
-                      CustomTextFormField(TextEditingController(), hintText: 'Kilo', icon: Icons.monitor_weight,),
-                      CustomTextFormField(TextEditingController(), hintText: 'Yaş', icon: Icons.calendar_today,),
+                      CustomTextFormField(viewModel.addressController, hintText: 'Adres', icon: Icons.add_location,),
+                      CustomTextFormField(viewModel.phoneNumberController, hintText: 'Telefon', icon: Icons.phone,),
+                      CustomTextFormField(viewModel.ageController, hintText: 'Yaş', icon: Icons.calendar_today,),
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(child: CustomTextFormField(TextEditingController(), hintText: 'Tüketilen Su (Lt)', icon: AppIcons.person,)),
+                          Expanded(child: CustomTextFormField(viewModel.waterCountController, hintText: 'Tüketilen Su (Lt)', icon: AppIcons.person,)),
                           SizedBox(width: context.dynamicWidth(0.07)),
                           CustomButton(
                             height: context.dynamicHeight(0.08),
                               width: context.dynamicWidth(0.25),
                               onPressed: null,
-                              text: '4.5LT',
+                              text: '${viewModel.waterCount}LT',
                               backgroundColor:
                               context.themeData.colorScheme.primary,
                               textColor: context
@@ -97,7 +98,7 @@ class SettingsView extends StatelessWidget {
                       ),
                       CustomButton(
                           height: context.dynamicHeight(0.09),
-                          onPressed: () {},
+                          onPressed: () => viewModel.save(),
                           text: 'Kaydet',
                           backgroundColor:
                           context.themeData.colorScheme.primary,
