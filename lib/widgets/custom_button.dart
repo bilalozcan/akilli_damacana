@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'custom_text.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../core/extensions/context_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final String? text;
@@ -34,10 +34,10 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
           onPressed: onPressed ?? () {},
           child: text != null
-              ? CustomText(text!, color: textColor ?? Color(0xff1D91D2), fontWeight: textWeight ?? FontWeight.normal)
+              ? CustomText(text!, color: textColor ?? context.themeData.primaryColor, fontWeight: textWeight ?? FontWeight.normal)
               : child,
           style: ElevatedButton.styleFrom(
-              primary: backgroundColor ?? Colors.white,
+              primary: backgroundColor ?? context.themeData.colorScheme.primaryVariant,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
