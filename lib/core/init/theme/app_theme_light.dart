@@ -1,4 +1,4 @@
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
+import 'light/color_scheme_light.dart';
 
 import '../../constants/app/app_constants.dart';
 import 'app_theme.dart';

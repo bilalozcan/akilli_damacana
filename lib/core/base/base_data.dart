@@ -1,4 +1,4 @@
-import 'package:smart_carboy/model/user.dart';
+import '../../model/user.dart';
 
 class BaseData {
   static BaseData? _instance;

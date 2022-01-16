@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:smart_carboy/core/base/base_view_model.dart';
-import 'package:smart_carboy/model/product.dart';
-import 'package:smart_carboy/service/product_service.dart';
+import '../../core/base/base_view_model.dart';
+import '../../model/product.dart';
+import '../../service/product_service.dart';
 
 class MainViewModel extends CustomBaseViewModel {
   final ProductService _productService = ProductService.instance!;

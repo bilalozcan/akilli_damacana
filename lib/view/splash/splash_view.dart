@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
-import 'package:smart_carboy/view/splash/splash_view_model.dart';
-import 'package:smart_carboy/widgets/base_container.dart';
-import 'package:smart_carboy/widgets/custom_text.dart';
+import '../../core/init/theme/light/color_scheme_light.dart';
+import 'splash_view_model.dart';
+import '../../widgets/base_container.dart';
+import '../../widgets/custom_text.dart';
 import 'package:stacked/stacked.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../../core/extensions/context_extension.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);

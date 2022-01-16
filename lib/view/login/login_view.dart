@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/core/constants/icon/app_icons.dart';
-import 'package:smart_carboy/view/home/home_view.dart';
-import 'package:smart_carboy/view/login/login_view_model.dart';
-import 'package:smart_carboy/view/main/main_view.dart';
-import 'package:smart_carboy/widgets/base_container.dart';
-import 'package:smart_carboy/widgets/custom_button.dart';
-import 'package:smart_carboy/widgets/custom_text_form_field.dart';
-import 'package:smart_carboy/widgets/loading_widget.dart';
+import '../../core/constants/icon/app_icons.dart';
+import '../home/home_view.dart';
+import 'login_view_model.dart';
+import '../main/main_view.dart';
+import '../../widgets/base_container.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/loading_widget.dart';
 import 'package:stacked/stacked.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../../core/extensions/context_extension.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);

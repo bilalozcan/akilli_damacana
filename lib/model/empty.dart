@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:smart_carboy/core/base/base_model.dart';
+import '../core/base/base_model.dart';
 
 part 'empty.g.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/widgets/base_container.dart';
-import 'package:smart_carboy/widgets/brand_container.dart';
-import 'package:smart_carboy/widgets/custom_progress_indicator.dart';
+import '../../widgets/base_container.dart';
+import '../../widgets/brand_container.dart';
+import '../../widgets/custom_progress_indicator.dart';
 import 'package:stacked/stacked.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../../core/extensions/context_extension.dart';
 import 'home_view_model.dart';
 
 class HomeView extends StatelessWidget {

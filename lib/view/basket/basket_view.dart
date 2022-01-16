@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carboy/core/constants/icon/app_icons.dart';
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
-import 'package:smart_carboy/model/product.dart';
-import 'package:smart_carboy/view/main/main_view_model.dart';
-import 'package:smart_carboy/widgets/brand_container.dart';
-import 'package:smart_carboy/widgets/custom_button.dart';
-import 'package:smart_carboy/widgets/custom_text.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
-import 'package:smart_carboy/widgets/loading_widget.dart';
+import '../../core/constants/icon/app_icons.dart';
+import '../../core/init/theme/light/color_scheme_light.dart';
+import '../../model/product.dart';
+import '../main/main_view_model.dart';
+import '../../widgets/brand_container.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text.dart';
+import '../../core/extensions/context_extension.dart';
+import '../../widgets/loading_widget.dart';
 import 'basket_view_model.dart';
 
 class BasketView extends StatefulWidget {

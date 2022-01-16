@@ -1,5 +1,5 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:smart_carboy/core/base/base_view_model.dart';
+import '../../core/base/base_view_model.dart';
 
 class SettingsViewModel extends CustomBaseViewModel {
 

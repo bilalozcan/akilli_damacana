@@ -1,9 +1,9 @@
-import 'package:smart_carboy/core/constants/enum/network_enum.dart';
-import 'package:smart_carboy/core/extensions/network_extension.dart';
-import 'package:smart_carboy/core/init/network/network_manager.dart';
-import 'package:smart_carboy/model/auth_response.dart';
-import 'package:smart_carboy/model/profile.dart';
-import 'package:smart_carboy/model/user.dart';
+import '../core/constants/enum/network_enum.dart';
+import '../core/extensions/network_extension.dart';
+import '../core/init/network/network_manager.dart';
+import '../model/auth_response.dart';
+import '../model/profile.dart';
+import '../model/user.dart';
 
 class AuthService {
   static AuthService? _instance;

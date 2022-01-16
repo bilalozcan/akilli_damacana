@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
-import 'package:smart_carboy/model/product.dart';
-import 'package:smart_carboy/view/basket/basket_view_model.dart';
+import '../core/extensions/context_extension.dart';
+import '../core/init/theme/light/color_scheme_light.dart';
+import '../model/product.dart';
+import '../view/basket/basket_view_model.dart';
 import 'custom_text.dart';
 
 class BrandContainer extends StatefulWidget {

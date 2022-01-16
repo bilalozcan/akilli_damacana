@@ -1,10 +1,10 @@
-import 'package:smart_carboy/core/constants/enum/network_enum.dart';
-import 'package:smart_carboy/core/extensions/network_extension.dart';
-import 'package:smart_carboy/core/init/network/network_manager.dart';
-import 'package:smart_carboy/model/auth_response.dart';
-import 'package:smart_carboy/model/cart.dart';
-import 'package:smart_carboy/model/empty.dart';
-import 'package:smart_carboy/model/product_response.dart';
+import '../core/constants/enum/network_enum.dart';
+import '../core/extensions/network_extension.dart';
+import '../core/init/network/network_manager.dart';
+import '../model/auth_response.dart';
+import '../model/cart.dart';
+import '../model/empty.dart';
+import '../model/product_response.dart';
 
 class ProductService {
   static ProductService? _instance;

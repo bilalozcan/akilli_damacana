@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'custom_text.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../core/extensions/context_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final String? text;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
+import '../core/extensions/context_extension.dart';
+import '../core/init/theme/light/color_scheme_light.dart';
 
 class BaseContainer extends StatelessWidget {
   final Widget child;

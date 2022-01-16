@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carboy/core/constants/icon/app_icons.dart';
-import 'package:smart_carboy/core/init/theme/light/color_scheme_light.dart';
-import 'package:smart_carboy/widgets/custom_button.dart';
-import 'package:smart_carboy/widgets/custom_text_form_field.dart';
+import '../../core/constants/icon/app_icons.dart';
+import '../../core/init/theme/light/color_scheme_light.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_form_field.dart';
 import 'package:stacked/stacked.dart';
-import 'package:smart_carboy/core/extensions/context_extension.dart';
+import '../../core/extensions/context_extension.dart';
 import 'settings_view_model.dart';
 
 class SettingsView extends StatelessWidget {

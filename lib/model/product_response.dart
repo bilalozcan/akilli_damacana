@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:smart_carboy/core/base/base_model.dart';
-import 'package:smart_carboy/model/product.dart';
+import '../core/base/base_model.dart';
+import 'product.dart';
 import 'products.dart';
 
 part 'product_response.g.dart';

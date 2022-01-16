@@ -1,4 +1,4 @@
-import 'package:smart_carboy/widgets/custom_progress_indicator.dart';
+import 'custom_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
